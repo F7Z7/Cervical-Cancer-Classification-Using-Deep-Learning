@@ -89,7 +89,7 @@ __marimo__/
 # ===================================================================
 
 # --- Data & Datasets ---
-data/raw/
+data/processed_jpg/
 data/processed/
 data/processed_jpg/
 data/processed_binary/
