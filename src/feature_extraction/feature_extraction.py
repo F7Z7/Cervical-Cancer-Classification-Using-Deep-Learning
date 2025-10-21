@@ -24,7 +24,7 @@ if __name__ == "__main__":
     ])
 
 
-    train_set = datasets.ImageFolder(TRAIN_DIR, transform=transform)
+    train_set = datasets.ImageFolder(TRAIN_DIR, transform=transform) #this will acces the image folder
     test_set  = datasets.ImageFolder(TEST_DIR, transform=transform)
 
     train_loader = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=False, num_workers=4)
@@ -42,7 +42,7 @@ if __name__ == "__main__":
             for imgs, labels in tqdm(dataloader, desc=f"Extracting {split_name} features"):
                 imgs = imgs.to(DEVICE)
                 feats = model(imgs)
-                feats = feats.view(feats.size(0), -1)  # safer than squeeze
+                feats = feats.view(feats.size(0), -1)
                 all_features.append(feats.cpu().numpy())
                 all_labels.append(labels.numpy())
 
@@ -53,6 +53,6 @@ if __name__ == "__main__":
             np.savez_compressed(out_path, X=X, y=y)
             print(f"Saved {split_name} features → {out_path} | X: {X.shape}, y: {y.shape}")
 
-    # --- Run feature extraction ---
+
     extract_features(train_loader, "train")
     extract_features(test_loader, "test")
