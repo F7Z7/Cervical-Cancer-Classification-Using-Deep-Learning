@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cervical Cancer Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 30px;
+            background-color: #f2f6fa;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type=file] {
+            padding: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        img {
+            margin-top: 20px;
+            max-width: 300px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cervical Cancer Classifier</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Upload & Predict</button>
+    </form>
+
+    {% if image_path %}
+        <div class="result">
+            <h3>Prediction: <span style="color: {% if prediction=='Normal' %}green{% else %}red{% endif %};">
+                {{ prediction }}
+            </span></h3>
+            <p>{{ probability }}</p>
+            <img src="{{ image_path }}" alt="Uploaded image">
+        </div>
+    {% endif %}
+</body>
+</html>
