@@ -38,7 +38,8 @@ class ImagePredictor:
     def predict(self, image_path):
         img=Image.open(image_path).convert('RGB')
         features=self.feature_extract(img)
-        features_scaled=self.scalar_model(features)
+        features_scaled = self.scalar_model.transform(features)
+
         pred = self.logistic_model.predict(features_scaled)[0]
         prob = self.logistic_model.predict_proba(features_scaled)[0]
         label = self.label_map[pred]
