@@ -14,20 +14,16 @@ predictor = ImagePredictor()
 
 @app.route('/',methods=['GET','POST'])
 def predict():
-    print("Route '/' accessed")
     if request.method == 'POST':
         if "image" not in request.files or request.files["image"].filename == "":
             return render_template("upload.html", error="Please select a file.")
 
-        print("ivde ethi")
         file=request.files["image"]
         file_path = os.path.join(UPLOAD_FOLDER, file.filename)
         file.save(file_path)
 
-        print("model predict cheyth thudangi")
         import time
 
-        print("Model prediction starting")
         start_time = time.time()
         label, prob = predictor.predict(file_path)
         end_time = time.time()
@@ -37,9 +33,7 @@ def predict():
 
 
         image_url = url_for('static', filename=f'uploads/{file.filename}')
-        print(image_url)
 
-        print("done")
         return render_template("predictor.html",prediction=label,probability=prob_text,image_path=image_url)
 
     return render_template("predictor.html")
